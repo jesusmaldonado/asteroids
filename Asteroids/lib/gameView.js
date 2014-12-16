@@ -33,6 +33,10 @@
     key('left', function () {
       this.game.ship.power([-0.5, 0]);
     }.bind(this));
+
+    key('space', function() {
+      this.game.ship.fireBullet();
+    }.bind(this));
   }
 
 

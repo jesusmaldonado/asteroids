@@ -25,4 +25,15 @@
     this.vel[1] += impulse[1];
   };
 
+  Ship.prototype.fireBullet = function () {
+    var bPos = [];
+    bPos[0] = this.pos[0];
+    bPos[1] = this.pos[1];
+    var bVel = [];
+    bVel[0] = this.vel[0];
+    bVel[1] = this.vel[1];
+    var bullet = new Asteroids.Bullet({pos: bPos, vel: bVel, game: this.game});
+    this.game.add(bullet);
+  }
+
 })();
