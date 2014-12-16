@@ -10,10 +10,10 @@
 
   GameView.prototype.start = function() {
     var run = function() {
-      this.game.moveObjects();
+      this.game.step();
       this.game.draw(this.ctx);
     }
-    setInterval(run.bind(this), 20);
+    setInterval(run.bind(this), 2);
   }
 
 

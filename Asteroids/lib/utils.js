@@ -15,8 +15,8 @@
 
   Asteroids.Util.randomVec = function(length) {
     var vec = [];
-    vec[0] = Math.floor(length * Math.random() + 1);
-    vec[1] = Math.floor(length * Math.random() + 1);
+    vec[0] = (2 * length * Math.random()) - 1;
+    vec[1] = (2 * length * Math.random()) - 1;
     return vec;
   };
 
