@@ -43,8 +43,6 @@
   };
 
   MovingObject.prototype.collideWith = function (otherObject) {
-    this.game.remove(this);
-    this.game.remove(otherObject);
   }
 
 })();
