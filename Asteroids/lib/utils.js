@@ -13,11 +13,13 @@
     ChildClass.prototype = new Surrogate();
   };
 
-  Asteroids.Util.randomVec = function(length) {
-    var vec = [];
-    vec[0] = (2 * length * Math.random()) - 1;
-    vec[1] = (2 * length * Math.random()) - 1;
+  Asteroids.Util.randomVel = function() {
+    var vec = Math.random();
     return vec;
+  };
+  Asteroids.Util.randomDir = function() {
+    var dir = Math.random() * Math.PI*2;
+    return dir;
   };
 
 })();

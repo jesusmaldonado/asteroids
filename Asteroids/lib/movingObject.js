@@ -7,6 +7,7 @@
   var MovingObject = Asteroids.MovingObject = function (params) {
     this.pos = params.pos;
     this.vel = params.vel;
+    this.dir = params.dir;
     this.radius = params.radius;
     this.color = params.color;
     this.game = params.game;
@@ -29,8 +30,8 @@
   };
 
   MovingObject.prototype.move = function() {
-    this.pos[0] += this.vel[0];
-    this.pos[1] += this.vel[1];
+    this.pos[0] += this.vel * Math.cos(this.dir);
+    this.pos[1] += this.vel * Math.sin(this.dir);
     if (this.isWrappable()) {
       this.pos = this.game.wrap(this.pos);
     } else if (this.game.isOutOfBounds(this.pos)) {

@@ -18,8 +18,11 @@
   Game.DIM_Y = window.innerHeight - 200;
   Game.NUM_ASTEROIDS = 1;
 
-  Game.prototype.randomPosition = function () {
-    return Asteroids.Util.randomVec(this.dimY);
+  Game.prototype.randomPosition =function() {
+    var vec = [];
+    vec[0] = Math.random() * Game.DIM_X;
+    vec[1] = Math.random() * Game.DIM_Y;
+    return vec;
   };
 
   Game.prototype.addAsteroids = function () {
@@ -32,11 +35,7 @@
   };
 
   Game.prototype.draw = function(ctx) {
-    //
     var objects = this.allObjects();
-
-
-
     for (var i = 0; i < objects.length; i++) {
       objects[i].draw(ctx);
     }
