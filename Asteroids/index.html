@@ -19,6 +19,7 @@
       canvasEl.height = window.innerHeight - 200;
       canvasEl.width = window.innerWidth - 200;
       var ctx = canvasEl.getContext("2d");
+
       var game = new Asteroids.Game();
       new Asteroids.GameView(game, ctx).start();
     </script>

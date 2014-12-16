@@ -9,11 +9,11 @@
     params.color = Asteroid.COLOR;
     Asteroids.MovingObject.call(this, params);
   };
-
+  Asteroids.Util.inherits(Asteroid, Asteroids.MovingObject);
+  
   Asteroid.COLOR = "#000";
   Asteroid.RADIUS = 10;
 
-  Asteroids.Util.inherits(Asteroid, Asteroids.MovingObject);
 
   Asteroid.prototype.collideWith = function (otherObject) {
     if (otherObject instanceof Asteroids.Ship) {

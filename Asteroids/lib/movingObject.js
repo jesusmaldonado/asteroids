@@ -42,11 +42,12 @@
     var xSquared = Math.pow(this.pos[0] - otherObject.pos[0], 2);
     var ySquared = Math.pow(this.pos[1] - otherObject.pos[1], 2);
     var dist = Math.sqrt(xSquared + ySquared);
-    var radiiSum = this.radius + otherObject.radius
+    var radiiSum = this.radius + otherObject.radius;
     return dist < radiiSum;
   };
 
   MovingObject.prototype.collideWith = function (otherObject) {
+  //raise
   }
 
   MovingObject.prototype.isWrappable = function () {

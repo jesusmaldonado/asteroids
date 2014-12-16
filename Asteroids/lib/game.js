@@ -16,7 +16,7 @@
 
   Game.DIM_X = window.innerWidth - 200;
   Game.DIM_Y = window.innerHeight - 200;
-  Game.NUM_ASTEROIDS = 20;
+  Game.NUM_ASTEROIDS = 1;
 
   Game.prototype.randomPosition = function () {
     return Asteroids.Util.randomVec(this.dimY);
@@ -32,8 +32,11 @@
   };
 
   Game.prototype.draw = function(ctx) {
-    ctx.clearRect(0,0, this.dimX, this.dimY);
-    var objects = this.allObjects()
+    //
+    var objects = this.allObjects();
+
+
+
     for (var i = 0; i < objects.length; i++) {
       objects[i].draw(ctx);
     }
@@ -103,6 +106,10 @@
 
   Game.prototype.isOutOfBounds = function (pos) {
     return pos[0] < 0 || pos[0] > this.dimX || pos[1] < 0 || pos[1] > this.dimY;
+  };
+
+  Game.prototype.isWon = function () {
+    return this.asteroids.length === 0;
   };
 
 
