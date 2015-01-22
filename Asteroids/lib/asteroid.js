@@ -24,6 +24,8 @@
     img2.src = "./lib/asteroid2.jpg";
     return images;
   };
+
+  
   //
   // Asteroid.prototype.draw = function (ctx) {
   //   var images = this.getImages();

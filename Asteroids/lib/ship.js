@@ -13,7 +13,7 @@
 
   Ship.RADIUS = 10;
   Ship.COLOR = "blue";
-  Ship.INCR = Math.PI/15;
+  Ship.INCR = Math.PI/12;
 
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);
 

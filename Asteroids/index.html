@@ -12,13 +12,13 @@
     <script src="./lib/bullet.js"></script>
   </head>
   <body>
-    <canvas id="game-canvas"></canvas>
+    <canvas id="game-canvas" width="768" height="768"></canvas>
 
     <script>
       var canvasEl = document.getElementById("game-canvas");
-      canvasEl.height = window.innerHeight - 200;
-      canvasEl.width = window.innerWidth - 200;
       var ctx = canvasEl.getContext("2d");
+
+
 
       var game = new Asteroids.Game();
       new Asteroids.GameView(game, ctx).start();

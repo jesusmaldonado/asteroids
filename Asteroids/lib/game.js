@@ -5,18 +5,18 @@
   }
 
   var Game = Asteroids.Game = function () {
-    this.dimX = Game.DIM_X;
-    this.dimY = Game.DIM_Y;
     this.numAsteroids = Game.NUM_ASTEROIDS;
     this.asteroids = [];
     this.addAsteroids();
     this.ship = new Asteroids.Ship({pos: this.randomPosition(), game: this});
     this.bullets = []
+    this.dimX = Game.DIM_X
+    this.dimY = Game.DIM_Y
   };
 
-  Game.DIM_X = window.innerWidth - 200;
-  Game.DIM_Y = window.innerHeight - 200;
-  Game.NUM_ASTEROIDS = 1;
+  Game.DIM_X = 768;
+  Game.DIM_Y = 768;
+  Game.NUM_ASTEROIDS = 10;
 
   Game.prototype.randomPosition =function() {
     var vec = [];
