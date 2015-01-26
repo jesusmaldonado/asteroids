@@ -1,0 +1,160 @@
+<html>
+  <head>
+    <title>Asteroids!</title>
+    <link rel="stylesheet" href="styles.css" media="screen" charset="utf-8">
+    <script type="text/javascript" src="vendor/paper.js"></script>
+
+    <script type="text/paperscript" canvas="game-canvas">
+    project.currentStyle.strokeColor = 'black';
+
+
+    var settings = {
+      asteroidCount: 10,
+      maximumSpeed: 12,
+      shipSpeed: 0.1
+    }
+
+    function initialize(){
+      Rocks.add(settings.asteroidCount);
+    }
+
+    function onFrame(event){
+      Rocks.move()
+      Ship.checkCollisions(event);
+      if (Key.isDown('up')){
+        Ship.forward();
+      }
+    }
+
+    var Rocks = new function(){
+      var group = new Group();
+      var shapes = [
+          new Path(
+              [-23, -40.5], [0, -30.5], [24, -40.5], [45, -21.5], [25, -12.5],
+              [46, 9.5], [22, 38.5], [-10, 30.5], [-22, 40.5], [-46, 18.5],
+              [-33, 0.5], [-44, -21.5], [-23, -40.5]),
+          new Path(
+              [-45, -9.5], [-12, -40.5], [24, -40.5], [46, -11.5], [45, 10.5],
+              [24, 40.5], [0, 40.5], [0, 10.5], [-23, 38.5], [-46, 9.5], [-25, 0.5],
+              [-45, -9.5]),
+          new Path([-21.5, -39.5], [11.5, -39.5], [45.5, -20.5],
+              [45.5, -8.5], [9.5, 0.5], [44.5, 21.5], [22.5, 39.5], [9.5, 31.5],
+              [-20.5, 39.5], [-45.5, 10.5], [-45.5, -20.5], [-11.5, -21.5],
+              [-21.5, -39.5]),
+          new Path(
+              [-22.5, -40.5], [-0.5, -19.5], [23.5, -39.5], [44.5, -21.5],
+              [33.5, 0.5], [46.5, 19.5], [13.5, 40.5], [-22.5, 39.5], [-46.5, 18.5],
+              [-46.5, -18.5], [-22.5, -40.5])
+      ];
+
+      var asteroidSymbols = [];
+      for (var i = 0; i < shapes.length; i++) {
+          asteroidSymbols[i] = new Symbol(shapes[i]);
+      }
+
+      return {
+          shapes: shapes,
+          children: group.children,
+          make: function(pos){
+            var randomShape = Math.floor(4 * Math.random());
+            var rock = asteroidSymbols[randomShape].place()
+
+            rock.position = Point.random() * view.size;
+            rock.vector = new Point({
+              angle: 360 * Math.random(),
+              length: settings.maximumSpeed * Math.random() + 0.1
+            })
+            return rock;
+          },
+          add: function(asteroidCount){
+            for (var i = 0; i < asteroidCount; i++){
+              var rock = this.make()
+              group.addChild(rock);
+            }
+          },
+          move: function(event){
+            for (var i = 0; i < Rocks.children.length; i++) {
+                var rock = Rocks.children[i];
+                var rockPath = rock.symbol.definition
+                rockPath.smooth()
+                rockPath.fillColor="black"
+                rock.symbol.definition.rotate(1);
+                rock.position += rock.vector;
+                keepInView(rock);
+            }
+          }
+        }
+      }
+
+    var Ship = new function(){
+      var path = new Path([-10, -8], [10, 0], [-10, 8], [-8, 4], [-8, -4]);
+      path.fillColor = "white";
+      path.closed = true;
+      path.scale(2)
+      path.smooth()
+      var thrust = new Path([-29, -8], [-31, 0], [-29, 8], [-22,0]);
+      thrust.closed = true;
+      thrust.fillColor="white";
+      thrust.strokeWidth = 1
+      thrust.strokeColor="grey";
+      // thrust.smooth()
+      thrust.scale(2)
+      thrust.visible = false;
+      var group = new Group(path, thrust);
+      group.position = view.bounds.center;
+
+
+      return {
+
+        angle: 0,
+        vector: new Point({
+            angle: 0.2,
+            length: 1
+        }),
+        checkCollisions: function(event){
+
+        },
+        move: function(){
+          group.position += this.vector
+          keepInView(group);
+        },
+        forward: function(){
+          thrust.visible = true
+          this.vector += new Point({
+            angle: this.angle,
+            length: settings.shipSpeed
+          })
+        }
+      }
+    }
+
+    initialize();
+
+    function keepInView(item) {
+        var position = item.position;
+        var itemBounds = item.bounds;
+        var bounds = view.bounds;
+
+        if (itemBounds.left > bounds.width) {
+            position.x = -item.bounds.width;
+        }
+
+        if (position.x < -itemBounds.width) {
+            position.x = bounds.width;
+        }
+
+        if (itemBounds.top > view.size.height) {
+            position.y = -itemBounds.height;
+        }
+
+        if (position.y < -itemBounds.height) {
+            position.y = bounds.height  + itemBounds.height / 2;
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <canvas id="game-canvas" width="768" height="768"></canvas>
+
+  </body>
+</html>
